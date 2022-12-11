@@ -1,0 +1,9 @@
+*
+
+!*.patch
+!PKGBUILD
+!.gitignore
+!photo.png
+!README.md
+!LICENSE
+!cleanup.sh
