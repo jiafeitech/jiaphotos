@@ -9,8 +9,8 @@ depends=(baloo cfitsio kactivities kimageannotator kitemmodels kparts libkdcraw 
 makedepends=('extra-cmake-modules' 'git' 'kdoctools')
 conflicts=('kdegraphics-gwenview' 'gwenview')
 provides=('gwenview')
-source=("git+https://invent.kde.org/graphics/gwenview.git#branch=release/22.12")
-sha256sums=('SKIP')
+source=("git+https://invent.kde.org/graphics/gwenview.git#branch=release/22.12" "desktop.patch" "desktop-importer.patch" "photo.png")
+sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP')
 
 prepare() {
   mkdir -p build
@@ -29,4 +29,9 @@ build() {
 package() {
   cd build
   make DESTDIR="$pkgdir" install
+
+  patch $pkgdir/usr/share/applications/org.kde.gwenview.desktop $srcdir/desktop.patch
+  patch $pkgdir/usr/share/applications/org.kde.gwenview_importer.desktop $srcdir/desktop-importer.patch
+  mkdir -p $pkgdir/usr/share/icons/cvm-ui-icons
+  cp $srcdir/photo.png $pkgdir/usr/share/icons/cvm-ui-icons
 }
